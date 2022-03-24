@@ -1,7 +1,6 @@
 import { Post } from 'src/post/post.entity';
 import { SpaceRole } from 'src/space-role/space-role.entity';
-import { User } from 'src/user/user.entity';
-import { BaseEntity, Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Invitation } from './invitation.entity';
 
 @Entity()

@@ -1,6 +1,5 @@
 import { Invitation } from 'src/space/invitation.entity';
-import { Space } from 'src/space/space.entity';
-import { BaseEntity, Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class User extends BaseEntity {
@@ -10,13 +9,16 @@ export class User extends BaseEntity {
   @Column()
   email: string;
 
-  @Column({ name: 'first_name' })
+  @Column()
+  password: string;
+
+  @Column({ name: 'first_name', nullable: true })
   firstName: string;
 
-  @Column({ name: 'last_name' })
+  @Column({ name: 'last_name', nullable: true })
   lastName: string;
 
-  @Column({ name: 'profile_img' })
+  @Column({ name: 'profile_img', nullable: true })
   profileImg: string;
 
   @Column({ name: 'is_deleted', default: false })
