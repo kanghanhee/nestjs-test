@@ -9,6 +9,9 @@ export class Space extends BaseEntity {
   id: number;
 
   @Column({ name: 'space_name' })
+  spaceCategory: string;
+
+  @Column({ name: 'space_name' })
   spaceName: string;
 
   @Column({ name: 'space_logo' })
