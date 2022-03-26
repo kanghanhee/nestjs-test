@@ -8,9 +8,6 @@ export class Space extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'space_category' })
-  spaceCategory: string;
-
   @Column({ name: 'space_name' })
   spaceName: string;
 
@@ -18,7 +15,7 @@ export class Space extends BaseEntity {
   spaceLogo: string;
 
   @Column({ name: 'host_id' })
-  hostId: string;
+  hostId: Number;
 
   @Column({ name: 'manager_code' })
   managerCode: string;

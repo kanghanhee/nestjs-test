@@ -3,6 +3,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { query } from 'express';
 import { Space } from './space.entity';
 import { SpaceRepository } from './space.repository';
+import { mySpaceDto } from './dto/get-space.dto';
+import { User } from 'src/auth/user.entity';
+import { CreateSpaceDto } from './dto/create-space.dto';
+import { generateCode } from './utils/generatCode';
 
 @Injectable()
 export class SpaceService {
@@ -13,10 +17,14 @@ export class SpaceService {
     this.spaceRepository = spaceRepository;
   }
 
-  findManagerSpace(inviteCode: string): Promise<Space> {
-    return this.spaceRepository.findOne({ managerCode: inviteCode });
+  async findManagerSpace(inviteCode: string, user: User) {
+    const findSpace = await this.spaceRepository.findOne({ managerCode: inviteCode });
+
+    if (findSpace) return mySpaceDto(findSpace, user);
   }
-  findParticipantSpace(inviteCode: string): Promise<Space> {
-    return this.spaceRepository.findOne({ participantCode: inviteCode });
+  async findParticipantSpace(inviteCode: string, user: User) {
+    const findSpace = await this.spaceRepository.findOne({ participantCode: inviteCode });
+
+    if (findSpace) return mySpaceDto(findSpace, user);
   }
 }
