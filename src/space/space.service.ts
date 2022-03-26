@@ -28,4 +28,21 @@ export class SpaceService {
 
     if (findSpace) return participantSpaceDto(findSpace, user);
   }
+  async addSpace(createSpaceDto: CreateSpaceDto, user: User) {
+    let managerCode = generateCode(); // 무작위로 참여 코드 생성
+    let space = await this.spaceRepository.checkInviteCode(managerCode);
+    while (space.length) {
+      managerCode = generateCode();
+      space = await this.spaceRepository.checkInviteCode(managerCode);
+    }
+    let participantCode = generateCode(); // 무작위로 참여 코드 생성
+    space = await this.spaceRepository.checkInviteCode(participantCode);
+    while (space.length) {
+      participantCode = generateCode();
+      space = await this.spaceRepository.checkInviteCode(participantCode);
+    }
+
+    const newSpace = await this.spaceRepository.addSpace(createSpaceDto, user, managerCode, participantCode);
+    return newSpace;
+  }
 }

@@ -29,4 +29,24 @@ export class SpaceController {
       data: findSpace,
     });
   }
+  /**
+   *  @ 공간 개설하기
+   *  @route POST /space
+   *  @error
+   *
+   */
+  @Post('/')
+  async addSpace(@GetUser() user: User, @Body() createSpaceDto: CreateSpaceDto): Promise<Space> {
+    if (!createSpaceDto.spaceName || !createSpaceDto.spaceLogo)
+      return Object.assign({
+        statusCode: 400,
+        message: 'NULL VALUE',
+      });
+    let addSpace = await this.spaceService.addSpace(createSpaceDto, user);
+    return Object.assign({
+      statusCode: 200,
+      message: '공간 개설하기 성공',
+      data: addSpace,
+    });
+  }
 }
