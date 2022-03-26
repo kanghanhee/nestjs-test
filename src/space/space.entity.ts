@@ -8,7 +8,7 @@ export class Space extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'space_name' })
+  @Column({ name: 'space_category' })
   spaceCategory: string;
 
   @Column({ name: 'space_name' })
