@@ -7,8 +7,8 @@ export class Invitation extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'role_id' })
-  roleId: number;
+  @Column({ name: 'is_manager' })
+  isManager: boolean;
 
   @Column({ name: 'created_at', default: () => 'now()' })
   createdAt: Date;
