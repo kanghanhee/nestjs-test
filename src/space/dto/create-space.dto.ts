@@ -6,10 +6,4 @@ export class CreateSpaceDto {
 
   @IsNotEmpty()
   spaceLogo: string;
-
-  //hostId: number;
-
-  //manager_code: string;
-
-  //participant_code: string;
 }

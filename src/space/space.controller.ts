@@ -2,6 +2,7 @@ import { BadRequestException, Body, Controller, Get, Header, HttpException, Http
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from 'src/auth/user.entity';
+import { CreateInvitationDto } from './dto/create-invitation.dto';
 import { CreateSpaceDto } from './dto/create-space.dto';
 import { Space } from './space.entity';
 import { SpaceService } from './space.service';
@@ -12,7 +13,7 @@ export class SpaceController {
   constructor(private spaceService: SpaceService) {}
 
   /**
-   *  @ 공간 참여하기
+   *  @ 공간 불러오기
    *  @route GET /space/:inviteCode
    *  @error
    *
@@ -26,10 +27,27 @@ export class SpaceController {
 
     return Object.assign({
       statusCode: 200,
-      message: '공간 참여하기 성공',
+      message: '공간 불러오기 성공',
       data: findSpace,
     });
   }
+  /**
+   *  @ 공간 참여하기
+   *  @route GET /space/:inviteCode/invitation
+   *  @error
+   *
+   */
+  @Post(':inviteCode/invitation')
+  async addInvitation(@GetUser() user: User, @Param('inviteCode') inviteCode: string, @Body() createInvitationDto: CreateInvitationDto): Promise<Space> {
+    let addInvitation = await this.spaceService.addInvitation(createInvitationDto, user);
+
+    return Object.assign({
+      statusCode: 200,
+      message: '공간 참여하기 성공',
+      data: addInvitation,
+    });
+  }
+
   /**
    *  @ 공간 개설하기
    *  @route POST /space

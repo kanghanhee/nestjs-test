@@ -8,14 +8,19 @@ import { User } from 'src/auth/user.entity';
 import { CreateSpaceDto } from './dto/create-space.dto';
 import { generateCode } from './utils/generatCode';
 import { participantSpaceDto } from './dto/get-participantSpace.dto';
+import { CreateInvitationDto } from './dto/create-invitation.dto';
+import { InvitationRepository } from './invitation.repository';
+import { invitationDto } from './dto/get-invitation.dto';
 
 @Injectable()
 export class SpaceService {
   constructor(
     @InjectRepository(SpaceRepository)
     private spaceRepository: SpaceRepository,
+    private invitationRepository: InvitationRepository,
   ) {
     this.spaceRepository = spaceRepository;
+    this.invitationRepository = invitationRepository;
   }
 
   async findManagerSpace(inviteCode: string, user: User) {
@@ -54,5 +59,10 @@ export class SpaceService {
     await this.spaceRepository.save(findSpace);
 
     return findSpace;
+  }
+  async addInvitation(createInvitationDto: CreateInvitationDto, user: User) {
+    const newInvitation = await this.invitationRepository.addInvitation(createInvitationDto, user);
+
+    return invitationDto(newInvitation);
   }
 }
