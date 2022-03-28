@@ -8,11 +8,11 @@ import { Space } from './space.entity';
 @EntityRepository(Invitation)
 export class InvitationRepository extends Repository<Invitation> {
   async addInvitation(createInvitationDto: CreateInvitationDto, user: User) {
-    const { spaceId, roleId } = createInvitationDto;
+    const { spaceId, isManager } = createInvitationDto;
 
     const newInvitation = this.create({
       space: spaceId,
-      roleId: roleId,
+      isManager: isManager,
       user: user,
     });
 
