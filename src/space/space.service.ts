@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { query } from 'express';
 import { Space } from './space.entity';
@@ -44,5 +44,15 @@ export class SpaceService {
 
     const newSpace = await this.spaceRepository.addSpace(createSpaceDto, user, managerCode, participantCode);
     return newSpace;
+  }
+  async deleteSpace(inviteCode: string, user: User) {
+    const findSpace = await this.spaceRepository.findOne({ managerCode: inviteCode });
+    if (!findSpace || findSpace.hostId !== user.id) {
+      throw new HttpException('공간 개설자가 아닙니다', HttpStatus.FORBIDDEN);
+    }
+    findSpace.isDeleted = true;
+    await this.spaceRepository.save(findSpace);
+
+    return findSpace;
   }
 }

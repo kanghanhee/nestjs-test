@@ -38,15 +38,6 @@ export class Space extends BaseEntity {
   @OneToMany(() => Post, (post) => post.space, { cascade: true })
   posts: Post[];
 
-  /*@ManyToMany(() => User, (users) => users.id, {
-    cascade: true,
-  })
-  @JoinTable({
-    name: 'participant',
-    joinColumns: [{ name: 'space_id' }],
-    inverseJoinColumns: [{ name: 'user_id' }],
-  })*/
-
   @OneToMany(() => Invitation, (invitations) => invitations.space, { cascade: true })
   invitations: Invitation[];
 }
