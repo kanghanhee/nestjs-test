@@ -1,4 +1,4 @@
-import { User } from 'src/user/user.entity';
+import { User } from 'src/auth/user.entity';
 import { BaseEntity, Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Space } from './space.entity';
 
@@ -7,8 +7,8 @@ export class Invitation extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'is_manager', default: false })
-  isManager: boolean;
+  @Column({ name: 'role_id' })
+  roleId: number;
 
   @Column({ name: 'created_at', default: () => 'now()' })
   createdAt: Date;

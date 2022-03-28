@@ -1,7 +1,6 @@
 import { Post } from 'src/post/post.entity';
-import { SpaceRole } from 'src/space-role/space-role.entity';
-import { User } from 'src/user/user.entity';
-import { BaseEntity, Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Role } from 'src/role/role.entity';
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Invitation } from './invitation.entity';
 
 @Entity()
@@ -16,7 +15,7 @@ export class Space extends BaseEntity {
   spaceLogo: string;
 
   @Column({ name: 'host_id' })
-  hostId: string;
+  hostId: Number;
 
   @Column({ name: 'manager_code' })
   managerCode: string;
@@ -33,20 +32,11 @@ export class Space extends BaseEntity {
   @Column({ name: 'updated_at', default: () => 'now()' })
   updatedAt: Date;
 
-  @OneToMany(() => SpaceRole, (spaceRole) => spaceRole.space, { cascade: true })
-  spaceRoles: SpaceRole[];
+  @OneToMany(() => Role, (role) => role.space, { eager: true, cascade: true })
+  roles: Role[];
 
   @OneToMany(() => Post, (post) => post.space, { cascade: true })
   posts: Post[];
-
-  /*@ManyToMany(() => User, (users) => users.id, {
-    cascade: true,
-  })
-  @JoinTable({
-    name: 'participant',
-    joinColumns: [{ name: 'space_id' }],
-    inverseJoinColumns: [{ name: 'user_id' }],
-  })*/
 
   @OneToMany(() => Invitation, (invitations) => invitations.space, { cascade: true })
   invitations: Invitation[];
