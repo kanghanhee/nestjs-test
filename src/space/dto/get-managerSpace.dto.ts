@@ -1,5 +1,4 @@
 import { User } from 'src/auth/user.entity';
-import { Role } from 'src/role/role.entity';
 import { Status } from 'src/role/status.enum';
 import { Space } from '../space.entity';
 
