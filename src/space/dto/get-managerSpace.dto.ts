@@ -1,4 +1,6 @@
 import { User } from 'src/auth/user.entity';
+import { Role } from 'src/role/role.entity';
+import { Status } from 'src/role/status.enum';
 import { Space } from '../space.entity';
 
 export const managerSpaceDto = (space: Space, user: User) => {
@@ -12,5 +14,6 @@ export const managerSpaceDto = (space: Space, user: User) => {
     isHost: Number(space.hostId) === user.id,
     isManager: true,
     isDeleted: space.isDeleted,
+    roles: space.roles.find((role) => role.role === Status.MANAGER),
   };
 };

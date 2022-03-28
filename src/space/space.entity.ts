@@ -1,5 +1,5 @@
 import { Post } from 'src/post/post.entity';
-import { SpaceRole } from 'src/space-role/space-role.entity';
+import { Role } from 'src/role/role.entity';
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Invitation } from './invitation.entity';
 
@@ -32,8 +32,8 @@ export class Space extends BaseEntity {
   @Column({ name: 'updated_at', default: () => 'now()' })
   updatedAt: Date;
 
-  @OneToMany(() => SpaceRole, (spaceRole) => spaceRole.space, { cascade: true })
-  spaceRoles: SpaceRole[];
+  @OneToMany(() => Role, (role) => role.space, { eager: true, cascade: true })
+  roles: Role[];
 
   @OneToMany(() => Post, (post) => post.space, { cascade: true })
   posts: Post[];
